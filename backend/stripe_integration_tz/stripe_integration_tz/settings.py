@@ -30,6 +30,12 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://stripetest-production-1be8.up.railway.app', # Твой домен фронтенда
+]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
