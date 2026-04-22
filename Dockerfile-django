@@ -12,4 +12,4 @@ COPY backend/ .
 EXPOSE 8000
 
 # Убираем "backend/" из путей, так как manage.py уже лежит в /app/
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tzmanage.py runserver 0.0.0.0:8000"]
