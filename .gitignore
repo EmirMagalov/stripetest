@@ -1,0 +1,28 @@
+# --- Основное ---
+.env
+*.log
+.DS_Store
+.idea/
+.vscode/
+
+# --- Backend (Django) ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+db.sqlite3
+/static/
+/media/
+
+# --- Frontend (Vue 3) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# --- Docker ---
+.docker/
