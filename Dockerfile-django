@@ -2,10 +2,14 @@ FROM python:3.10.9
 
 WORKDIR /app
 
+# Копируем список зависимостей
 COPY backend/requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Копируем СОДЕРЖИМОЕ папки backend в текущую директорию (/app)
 COPY backend/ .
+
 EXPOSE 8000
-CMD ["sh", "-c", "python backend/manage.py migrate && python backend/manage.py runserver 0.0.0.0:8000"]
+
+# Убираем "backend/" из путей, так как manage.py уже лежит в /app/
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
