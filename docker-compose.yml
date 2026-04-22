@@ -12,7 +12,7 @@ services:
       context: .
       dockerfile: Dockerfile-django
     container_name: django
-    command: python stripe_integration_tz/manage.py runserver 0.0.0.0:8000
+#    command: python stripe_integration_tz/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
 
