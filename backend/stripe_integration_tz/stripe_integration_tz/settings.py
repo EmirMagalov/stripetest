@@ -28,7 +28,7 @@ SECRET_KEY = get_config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = [
     "stripetest-production-1be8.up.railway.app",
     "localhost",
