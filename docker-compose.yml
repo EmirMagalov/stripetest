@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./media:/app/media
+      - ./media:/app/stripe_integration_tz/media
     env_file:
       - .env
 
