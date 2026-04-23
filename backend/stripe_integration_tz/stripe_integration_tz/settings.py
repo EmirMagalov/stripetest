@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+
+import dj_database_url
+
 from config import get_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,7 +33,7 @@ ALLOWED_HOSTS = [
     "stripetest-production-1be8.up.railway.app",
     "localhost",
     "127.0.0.1",
-    ".railway.app"
+    ".railway.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -87,17 +90,20 @@ WSGI_APPLICATION = "stripe_integration_tz.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DATABASE_NAME", "DB"),
-        "USER": os.getenv("DATABASE_USER", "admin"),
-        "PASSWORD": os.getenv("DATABASE_PASSWORD", "1320"),
-        "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
-        "PORT": os.getenv("DATABASE_PORT", 5432),
+DATABASE_URL = os.getenv("DATABASE_URL")
+if DATABASE_URL:
+    DATABASES = {"default": dj_database_url.config(default=DATABASE_URL)}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("DATABASE_NAME", "CSskins"),
+            "USER": os.getenv("DATABASE_USER", "admin"),
+            "PASSWORD": os.getenv("DATABASE_PASSWORD", "1320"),
+            "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
+            "PORT": os.getenv("DATABASE_PORT", 5432),
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
