@@ -36,7 +36,8 @@ ALLOWED_HOSTS = [
     ".railway.app",
     "192.168.1.74",
 ]
-
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 CORS_ALLOWED_ORIGINS = [
     "https://alluring-manifestation-production-84c6.up.railway.app",
 ]
