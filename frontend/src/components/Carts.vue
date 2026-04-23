@@ -2,9 +2,9 @@
 
 import {apiUrl} from "@/config.js";
 import axios from "axios";
-import {computed, inject, ref} from "vue";
+import {computed, inject, onMounted, ref} from "vue";
 const handleBuy = inject("handleBuy");
-const currency = inject('currency');
+import {mediaUrl} from "@/config.js";
 const props = defineProps({
   items: Array,
 })
@@ -22,6 +22,11 @@ const filteredItems = computed(() => {
   // Если совпадений 0, возвращаем весь список
   return matches.length > 0 ? matches : props.items;
 });
+
+onMounted(() => {
+  console.log(mediaUrl)
+})
+
 </script>
 
 <template>
@@ -44,7 +49,7 @@ const filteredItems = computed(() => {
 
       <div class="bg-[#0b467e] text-white font-bold rounded-2xl overflow-hidden flex flex-col h-full">
 
-        <img :src="item.image" class="w-full object-cover" alt="">
+        <img :src="mediaUrl + item.image" class="w-full object-cover" alt="">
 
         <p class="text-center text-md sm:text-2xl p-2">
           {{ item.name }}

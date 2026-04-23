@@ -13,9 +13,14 @@ services:
       dockerfile: Dockerfile-vue
       args:
         - VITE_API_URL=${VITE_API_URL}
+        - VITE_MEDIA_URL=${VITE_MEDIA_URL}
+    env_file:
+      - ./frontend/.env.development
     ports:
       - "8080:80"
-
+    volumes:
+      # Проверь эту строку:
+      - ./media:/app/media:ro
     depends_on:
       - db
 
@@ -30,7 +35,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./media:/app/stripe_integration_tz/media
+      - ./media:/app/media:ro
     env_file:
       - .env
 

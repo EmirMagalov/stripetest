@@ -18,7 +18,7 @@ class ItemsAPI(APIView):
     def get(self, request):
         items = Item.objects.all()
         target_currency = request.query_params.get("currency", "rub").lower()
-        data = ItemsSerializer(items, context={"request": request}, many=True).data
+        data = ItemsSerializer(items, many=True).data
 
         rate = 75.1
         total_in_rub = sum(item.get_final_price() for item in items)
