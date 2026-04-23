@@ -90,8 +90,12 @@ WSGI_APPLICATION = "stripe_integration_tz.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DATABASE_NAME", "DB"),
+        "USER": os.getenv("DATABASE_USER", "admin"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD", "1320"),
+        "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
+        "PORT": os.getenv("DATABASE_PORT", 5432),
     }
 }
 

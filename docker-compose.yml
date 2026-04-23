@@ -1,4 +1,12 @@
 services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
   frontend:
     build:
       context: .
@@ -6,6 +14,8 @@ services:
 
     ports:
       - "8080:80"
+    depends_on:
+      - db
 
   backend:
     build:
@@ -15,6 +25,10 @@ services:
 #    command: python stripe_integration_tz/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
-
+    depends_on:
+      - db
     env_file:
       - .env
+
+volumes:
+  postgres_data:
