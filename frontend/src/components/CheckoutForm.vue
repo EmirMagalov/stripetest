@@ -22,8 +22,8 @@ onMounted(async () => {
   try {
     console.log(props.selectedItemId)
     const url = props.selectedItemId
-        ? `${apiUrl}buy/${props.selectedItemId}/${props.currency}/`
-        : `${apiUrl}buy/`;
+        ? `${apiUrl}/buy/${props.selectedItemId}/${props.currency}/`
+        : `${apiUrl}/buy/`;
 
     const response = await axios.get(url);
 

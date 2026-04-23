@@ -16,7 +16,7 @@ const selectCurrency = async (val) => {
   showDropdown.value = false;
   try {
 
-    const {data} = await axios.get(`${apiUrl}items/?currency=${val}`);
+    const {data} = await axios.get(`${apiUrl}/items/?currency=${val}`);
     const newItems = data.items.results || data.items;
 
     total_sum.value = data.total_sum;

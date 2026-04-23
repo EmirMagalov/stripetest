@@ -1,7 +1,5 @@
 <script setup>
-import axios from "axios";
 import {onMounted, ref} from "vue";
-import {apiUrl} from "@/config.js";
 import {useRoute} from 'vue-router';
 
 const route = useRoute();

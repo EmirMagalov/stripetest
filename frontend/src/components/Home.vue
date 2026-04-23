@@ -13,7 +13,7 @@ const isPaymentOpen = ref(false)
 onMounted(async () => {
   console.log(apiUrl);
   try {
-    const {data} = await axios.get(`${apiUrl}items/?currency=${currency.value}`);
+    const {data} = await axios.get(`${apiUrl}/items/?currency=${currency.value}`);
 
     items.value = data.items;
     total_sum.value = data.total_sum;
