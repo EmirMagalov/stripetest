@@ -9,6 +9,7 @@ const currency = inject('currency');
 const items = inject('items');
 const total_sum = inject('total_sum');
 onMounted(async () => {
+  console.log(apiUrl);
   try {
     const {data} = await axios.get(`${apiUrl}items/?currency=${currency.value}`);
 
