@@ -7,7 +7,7 @@ from .serializers import ItemsSerializer
 from config import get_config
 
 stripe.api_key = get_config("STRIPE_SECRET_KEY")
-
+frontend_url = get_config("FRONTEND_URL")
 
 def home(request):
     return HttpResponse("Hello, world.")
@@ -125,14 +125,14 @@ class CreateCheckoutSessionView(APIView):
                 "items_count": items.count(),
             },
             success_url=(
-                "http://localhost:5173/success"
+                f"http://{frontend_url}/success"
                 "?session_id={CHECKOUT_SESSION_ID}"
                 f"&item_name={display_name}"
                 f"&total_price={round(total_sum_with_tax, 2)}"
                 f"&tax_percent={item.tax.percent if item.tax else 0}"
                 f"&item_currency={currency}"
             ),
-            cancel_url="http://localhost:5173/cancel/",
+            cancel_url=f"http://{frontend_url}/cancel/",
         )
 
         return Response({"id": session.id, "url": session.url})
