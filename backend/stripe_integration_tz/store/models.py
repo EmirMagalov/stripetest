@@ -7,6 +7,10 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Category(models.Model):
     name = models.CharField(max_length=200, verbose_name="Название")
 
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
     def __str__(self):
         return self.name
 
@@ -20,6 +24,10 @@ class Tax(models.Model):
         max_length=255, verbose_name="ID из панели Stripe"
     )
 
+    class Meta:
+        verbose_name = "Налог"
+        verbose_name_plural = "Налоги"
+
     def __str__(self):
         return f"{self.name} ({self.percent}%)"
 
@@ -30,6 +38,10 @@ class Discount(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(100)],
         verbose_name="Процент скидки",
     )
+
+    class Meta:
+        verbose_name = "Скидка"
+        verbose_name_plural = "Скидки"
 
     def __str__(self):
         return f"{self.name} (-{self.percent}%)"
@@ -64,6 +76,10 @@ class Item(models.Model):
             multiplier = Decimal(1 - (self.discount.percent / 100))
             return round(self.price * multiplier, 2)
         return self.price
+
+    class Meta:
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
 
     def __str__(self):
         return self.name
