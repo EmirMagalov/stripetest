@@ -26,7 +26,7 @@ SECRET_KEY = get_config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://alluring-manifestation-production-84c6.up.railway.app"]
+ALLOWED_HOSTS = ["https://stripetest-production-1be8.up.railway.app",]
 
 CORS_ALLOWED_ORIGINS = [
     "https://alluring-manifestation-production-84c6.up.railway.app",
