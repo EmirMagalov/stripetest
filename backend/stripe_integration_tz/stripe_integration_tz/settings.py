@@ -28,8 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["https://stripetest-production-1be8.up.railway.app",]
 
-CORS_ALLOWED_ORIGINS = [
-    "https://alluring-manifestation-production-84c6.up.railway.app",
+ALLOWED_HOSTS = [
+    "stripetest-production-1be8.up.railway.app",
+    "localhost",
+    "127.0.0.1",
+    ".railway.app"
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://stripetest-production-1be8.up.railway.app",
