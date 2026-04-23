@@ -8,68 +8,94 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('store', '0006_item_tax_alter_tax_name_alter_tax_stripe_tax_rate_id'),
+        ("store", "0006_item_tax_alter_tax_name_alter_tax_stripe_tax_rate_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='name',
-            field=models.CharField(max_length=200, verbose_name='Название'),
+            model_name="category",
+            name="name",
+            field=models.CharField(max_length=200, verbose_name="Название"),
         ),
         migrations.AlterField(
-            model_name='discount',
-            name='name',
-            field=models.CharField(max_length=100, verbose_name='Название'),
+            model_name="discount",
+            name="name",
+            field=models.CharField(max_length=100, verbose_name="Название"),
         ),
         migrations.AlterField(
-            model_name='discount',
-            name='percent',
-            field=models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(100)], verbose_name='Процент скидки'),
+            model_name="discount",
+            name="percent",
+            field=models.PositiveIntegerField(
+                validators=[
+                    django.core.validators.MinValueValidator(1),
+                    django.core.validators.MaxValueValidator(100),
+                ],
+                verbose_name="Процент скидки",
+            ),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='categories',
-            field=models.ManyToManyField(related_name='items', to='store.category', verbose_name='Категория товара'),
+            model_name="item",
+            name="categories",
+            field=models.ManyToManyField(
+                related_name="items",
+                to="store.category",
+                verbose_name="Категория товара",
+            ),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='currency',
-            field=models.CharField(default='rub', verbose_name='Валюта'),
+            model_name="item",
+            name="currency",
+            field=models.CharField(default="rub", verbose_name="Валюта"),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='description',
-            field=models.TextField(verbose_name='Описание'),
+            model_name="item",
+            name="description",
+            field=models.TextField(verbose_name="Описание"),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='discount',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.discount', verbose_name='Скидка'),
+            model_name="item",
+            name="discount",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="store.discount",
+                verbose_name="Скидка",
+            ),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='items/', verbose_name='Фото'),
+            model_name="item",
+            name="image",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="items/", verbose_name="Фото"
+            ),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='name',
-            field=models.CharField(max_length=200, verbose_name='Название'),
+            model_name="item",
+            name="name",
+            field=models.CharField(max_length=200, verbose_name="Название"),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='price',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Цена'),
+            model_name="item",
+            name="price",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Цена"
+            ),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='quantity',
-            field=models.IntegerField(verbose_name='Количесво'),
+            model_name="item",
+            name="quantity",
+            field=models.IntegerField(verbose_name="Количесво"),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='tax',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.tax', verbose_name='Налог'),
+            model_name="item",
+            name="tax",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="store.tax",
+                verbose_name="Налог",
+            ),
         ),
     ]

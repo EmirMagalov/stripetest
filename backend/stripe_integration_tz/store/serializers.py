@@ -6,7 +6,7 @@ from .models import Item, Category
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = "__all__"
 
 
 class ItemsSerializer(serializers.ModelSerializer):
@@ -17,9 +17,20 @@ class ItemsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ['id', 'name', 'image', 'description', 'price', 'quantity', 'price_with_discount', 'tax_info',
-                  'discount_percent',
-                  'categories', 'currency', 'created_at']
+        fields = [
+            "id",
+            "name",
+            "image",
+            "description",
+            "price",
+            "quantity",
+            "price_with_discount",
+            "tax_info",
+            "discount_percent",
+            "categories",
+            "currency",
+            "created_at",
+        ]
 
     def get_price_with_discount(self, obj):
         if obj.discount:
@@ -44,7 +55,7 @@ class ItemsSerializer(serializers.ModelSerializer):
                 "name": obj.tax.name,
                 "percent": obj.tax.percent,
                 "tax_amount": tax_amount,
-                "total_with_tax": total_with_tax
+                "total_with_tax": total_with_tax,
             }
         return None
 
@@ -52,9 +63,9 @@ class ItemsSerializer(serializers.ModelSerializer):
         return Item.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.description = validated_data.get('description', instance.description)
-        instance.price = validated_data.get('price', instance.price)
-        instance.quantity = validated_data.get('quantity', instance.quantity)
+        instance.name = validated_data.get("name", instance.name)
+        instance.description = validated_data.get("description", instance.description)
+        instance.price = validated_data.get("price", instance.price)
+        instance.quantity = validated_data.get("quantity", instance.quantity)
         instance.save()
         return instance

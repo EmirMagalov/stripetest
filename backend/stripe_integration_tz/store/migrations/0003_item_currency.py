@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('store', '0002_remove_item_category_item_categories'),
+        ("store", "0002_remove_item_category_item_categories"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='item',
-            name='currency',
-            field=models.CharField(default='rub'),
+            model_name="item",
+            name="currency",
+            field=models.CharField(default="rub"),
         ),
     ]

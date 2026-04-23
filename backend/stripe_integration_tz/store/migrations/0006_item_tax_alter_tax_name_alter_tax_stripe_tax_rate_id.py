@@ -7,23 +7,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('store', '0005_tax'),
+        ("store", "0005_tax"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='item',
-            name='tax',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.tax'),
+            model_name="item",
+            name="tax",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="store.tax",
+            ),
         ),
         migrations.AlterField(
-            model_name='tax',
-            name='name',
-            field=models.CharField(max_length=100, verbose_name='Название налога'),
+            model_name="tax",
+            name="name",
+            field=models.CharField(max_length=100, verbose_name="Название налога"),
         ),
         migrations.AlterField(
-            model_name='tax',
-            name='stripe_tax_rate_id',
-            field=models.CharField(max_length=255, verbose_name='ID из панели Stripe'),
+            model_name="tax",
+            name="stripe_tax_rate_id",
+            field=models.CharField(max_length=255, verbose_name="ID из панели Stripe"),
         ),
     ]

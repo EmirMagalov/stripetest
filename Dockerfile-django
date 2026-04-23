@@ -2,14 +2,15 @@ FROM python:3.10.9
 
 WORKDIR /app
 
-# Копируем список зависимостей
+
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем СОДЕРЖИМОЕ папки backend в текущую директорию (/app)
+
 COPY backend/ .
 
 EXPOSE 8000
 
-# Убираем "backend/" из путей, так как manage.py уже лежит в /app/
-CMD ["sh", "-c", "python manage.py migrate && python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '', '$DJANGO_SUPERUSER_PASSWORD')\" && python manage.py runserver 0.0.0.0:8000"]
+
+CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tz/manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '', '$DJANGO_SUPERUSER_PASSWORD')\" && python stripe_integration_tz/manage.py runserver 0.0.0.0:8000"]
+#CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tz/manage.py runserver 0.0.0.0:8000"]
