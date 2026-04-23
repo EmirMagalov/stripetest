@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     ".railway.app",
+    "192.168.1.74",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -96,12 +97,8 @@ if DATABASE_URL:
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DATABASE_NAME", "CSskins"),
-            "USER": os.getenv("DATABASE_USER", "admin"),
-            "PASSWORD": os.getenv("DATABASE_PASSWORD", "1320"),
-            "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
-            "PORT": os.getenv("DATABASE_PORT", 5432),
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 

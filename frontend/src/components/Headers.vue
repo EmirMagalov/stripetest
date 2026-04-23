@@ -7,7 +7,7 @@ import {apiUrl} from "@/config.js";
 const currency = inject('currency');
 const items = inject('items');
 const total_sum = inject('total_sum');
-
+const searchQuery = inject("searchQuery");
 const showDropdown = ref(false); // Состояние для мобилок или клика
 const availableCurrencies = ['rub', 'usd'];
 
@@ -35,24 +35,27 @@ const selectCurrency = async (val) => {
 </script>
 
 <template>
-  <div class="border-b-3 border-[#FF8000] bg-[#062c59] px-10 py-5 flex items-center justify-between">
-    <RouterLink to="/" class="flex items-center gap-5">
-      <img class="w-20" src="/game.svg" alt="">
-      <div class="flex-col">
-        <p class="text-2xl font-bold text-white leading-tight">DRAGON SHOP</p>
-        <p class="text-[#FF8000]">Легендарные игры</p>
-      </div>
-    </RouterLink>
+  <div class="border-b-3 border-[#FF8000] bg-[#062c59] px-4 sm:px-10 py-2 sm:p-5 flex items-end sm:items-center gap-2 sm:justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 justify-between">
+      <RouterLink to="/" class="flex items-center gap-3">
+        <img class="w-6 sm:w-20" src="/game.svg" alt="">
+        <div class="flex-col">
+          <p class="text-sm sm:text-2xl font-bold text-white leading-tight">DRAGON SHOP</p>
+          <p class="text-[#FF8000] text-xs">Легендарные игры</p>
+        </div>
+      </RouterLink>
 
-    <div class="bg-[#0b467e] h-11 relative rounded-xl overflow-hidden">
-      <input class="p-2 focus:outline-none w-100 text-white h-full text-lg bg-transparent" placeholder="Найти игру...">
+      <div class="bg-[#0b467e] h-11 sm:absolute sm:left-1/2 sm:-translate-x-1/2 rounded-xl overflow-hidden">
+        <input v-model="searchQuery" class="p-2 focus:outline-none w-full sm:w-100 text-white h-full text-lg bg-transparent" placeholder="Найти игру...">
+      </div>
+
     </div>
 
-    <div class="flex items-center gap-3">
-      <p class="font-bold text-white/80">Валюта:</p>
+    <div class="sm:flex items-center  gap-3">
+      <p class="font-bold  text-white/80">Валюта:</p>
 
       <div
-          class="relative group"
+          class="relative group "
           @mouseleave="showDropdown = false"
       >
         <button
@@ -64,7 +67,7 @@ const selectCurrency = async (val) => {
         </button>
 
         <div
-            class="absolute left-0 w-full bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden transition-all
+            class="absolute  left-0 w-full bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden transition-all
                    mt-0 pt-1
                    before:content-[''] before:absolute before:top-[-10px] before:left-0 before:w-full before:h-[10px]"
             :class="{ 'block': showDropdown, 'hidden group-hover:block': !showDropdown }"

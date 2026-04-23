@@ -9,6 +9,7 @@ from config import get_config
 stripe.api_key = get_config("STRIPE_SECRET_KEY")
 frontend_url = get_config("FRONTEND_URL")
 
+
 def home(request):
     return HttpResponse("Hello, world.")
 
@@ -61,10 +62,16 @@ class ItemsAPI(APIView):
         return Response(serializers.data)
 
 
-class CreateCheckoutSessionView(APIView):
+import stripe
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+
+class CreatePaymentIntentView(APIView):
     def get(self, request, pk=None, currency="rub"):
         if pk is None:
             currency = request.query_params.get("currency", "rub").lower()
+
         if pk:
             items = Item.objects.filter(pk=pk)
         else:
@@ -74,11 +81,9 @@ class CreateCheckoutSessionView(APIView):
             return Response({"error": "Items not found"}, status=404)
 
         exchange_rate = 75.1
-        line_items = []
         total_sum_with_tax = 0
 
         for item in items:
-
             multiplier = 1 - (item.discount.percent / 100) if item.discount else 1
             final_price_rub = float(item.price) * multiplier
 
@@ -91,48 +96,28 @@ class CreateCheckoutSessionView(APIView):
 
             final_price = round(final_price, 2)
 
-            tax_rates = []
             tax_val = 0
-            if item.tax and item.tax.stripe_tax_rate_id:
-                tax_rates.append(item.tax.stripe_tax_rate_id)
+            if item.tax:
                 tax_val = round(final_price * (float(item.tax.percent) / 100), 2)
 
             total_sum_with_tax += final_price + tax_val
 
-            line_items.append(
-                {
-                    "price_data": {
-                        "currency": currency,
-                        "product_data": {
-                            "name": item.name,
-                            "description": (
-                                item.description[:100] if item.description else ""
-                            ),
-                        },
-                        "unit_amount": int(final_price * 100),
-                    },
-                    "quantity": 1,
-                    "tax_rates": tax_rates,
-                }
-            )
-
-        display_name = items[0].name if items.count() == 1 else "Cart Checkout"
-
-        session = stripe.checkout.Session.create(
-            line_items=line_items,
-            mode="payment",
+        # Stripe работает в центах
+        amount_in_cents = int(round(total_sum_with_tax * 100))
+        total_sum_with_tax = round(float(total_sum_with_tax), 2)
+        intent = stripe.PaymentIntent.create(
+            amount=amount_in_cents,
+            currency=currency,
             metadata={
                 "items_count": items.count(),
             },
-            success_url=(
-                f"http://{frontend_url}/success"
-                "?session_id={CHECKOUT_SESSION_ID}"
-                f"&item_name={display_name}"
-                f"&total_price={round(total_sum_with_tax, 2)}"
-                f"&tax_percent={item.tax.percent if item.tax else 0}"
-                f"&item_currency={currency}"
-            ),
-            cancel_url=f"http://{frontend_url}/cancel/",
         )
 
-        return Response({"id": session.id, "url": session.url})
+        return Response(
+            {
+                "client_secret": intent.client_secret,
+                "total_sum": total_sum_with_tax,
+                "item_name": items.first().name,
+                "tax_percent": items.first().tax.percent if items.first().tax else 0,
+            }
+        )

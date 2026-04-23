@@ -6,10 +6,15 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    host: true, // или '0.0.0.0'
+    port: 5173  // можно заодно и порт закрепить
+  },
   plugins: [
     vue(),
     vueDevTools(),
     tailwindcss(),
+
   ],
   resolve: {
     alias: {
