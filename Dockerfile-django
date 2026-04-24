@@ -8,9 +8,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 COPY backend/ .
-
+RUN mkdir -p /app/stripe_integration_tz/staticfiles
+RUN python  stripe_integration_tz/manage.py collectstatic --noinput
 EXPOSE 8000
 
 
-CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tz/manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '', '$DJANGO_SUPERUSER_PASSWORD')\" && python stripe_integration_tz/manage.py runserver 0.0.0.0:8000"]
+#CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tz/manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '', '$DJANGO_SUPERUSER_PASSWORD')\" && python stripe_integration_tz/manage.py runserver 0.0.0.0:8000"]
 #CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tz/manage.py runserver 0.0.0.0:8000"]
+#CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tz/manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '', '$DJANGO_SUPERUSER_PASSWORD')\" && gunicorn --bind 0.0.0.0:8000 stripe_integration_tz.stripe_integration_tz.wsgi:application"]
+CMD ["sh", "-c", "python stripe_integration_tz/manage.py migrate && python stripe_integration_tz/manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '', '$DJANGO_SUPERUSER_PASSWORD')\" && gunicorn --bind 0.0.0.0:8000 --pythonpath stripe_integration_tz stripe_integration_tz.wsgi:application"]
