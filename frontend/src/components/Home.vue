@@ -55,7 +55,7 @@ provide('handleBuy', handleBuy);
       <p class="absolute text-xl bottom-2 text-orange-500 right-2 font-bold">Выгодные предложения</p>
     </div>
 
-    <div class="hidden sm:block absolute right-25 bg-[#0b467e] text-white top-0 flex flex-col items-center justify-between h-full w-80">
+    <div class="hidden sm:flex absolute right-25 bg-[#0b467e] text-white top-0  flex-col items-center justify-between h-full w-80">
 
       <div class="flex flex-col gap-5 items-center p-5 w-full">
         <h1 class="text-2xl font-bold">Весь ассортимент</h1>
