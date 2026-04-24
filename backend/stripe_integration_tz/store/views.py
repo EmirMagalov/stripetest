@@ -20,7 +20,7 @@ class ItemsAPI(APIView):
         data = ItemsSerializer(items_queryset, many=True).data
 
         rate = 75.1
-        total_in_rub = sum(item.get_final_price() for item in items)
+        total_in_rub = sum(item.get_final_price() for item in items_queryset)
         for item in data:
             price_in_rub = float(item["price"])
             discount_price_in_rub = float(item["price_with_discount"])
