@@ -42,7 +42,6 @@ class CreatePaymentIntentView(APIView):
 
             total_sum_with_tax += final_price + tax_val
 
-        # Stripe работает в центах
         amount_in_cents = int(round(total_sum_with_tax * 100))
         total_sum_with_tax = round(float(total_sum_with_tax), 2)
         intent = stripe.PaymentIntent.create(
