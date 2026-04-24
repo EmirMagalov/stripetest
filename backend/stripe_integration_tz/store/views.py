@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from rest_framework.response import Response
-
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from .models import Item
 from .serializers import ItemsSerializer
@@ -10,10 +10,14 @@ frontend_url = get_config("FRONTEND_URL")
 
 
 class ItemsAPI(APIView):
-    def get(self, request):
-        items = Item.objects.all()
+    def get(self, request, pk=None):
+        if pk:
+            item = get_object_or_404(Item, pk=pk)
+            items_queryset = [item]
+        else:
+            items_queryset = Item.objects.all()
         target_currency = request.query_params.get("currency", "rub").lower()
-        data = ItemsSerializer(items, many=True).data
+        data = ItemsSerializer(items_queryset, many=True).data
 
         rate = 75.1
         total_in_rub = sum(item.get_final_price() for item in items)
