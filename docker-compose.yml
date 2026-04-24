@@ -14,8 +14,9 @@ services:
       args:
         - VITE_API_URL=${VITE_API_URL}
         - VITE_MEDIA_URL=${VITE_MEDIA_URL}
+        - VITE_STRIPE_PUBLISHED_KEY=${VITE_STRIPE_PUBLISHED_KEY}
     env_file:
-      - ./frontend/.env.development
+      - .env
     ports:
       - "8080:80"
     volumes:
