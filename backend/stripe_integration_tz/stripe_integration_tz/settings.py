@@ -28,7 +28,7 @@ SECRET_KEY = get_config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 ALLOWED_HOSTS = [
     "stripetest-production-1be8.up.railway.app",
     "localhost",
@@ -36,15 +36,15 @@ ALLOWED_HOSTS = [
     ".railway.app",
     "192.168.1.74",
 ]
-# SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SECURE = False
-# CORS_ALLOWED_ORIGINS = [
-#     "https://alluring-manifestation-production-84c6.up.railway.app",
-# ]
-# CSRF_TRUSTED_ORIGINS = [
-#     "https://stripetest-production-1be8.up.railway.app",
-#     "https://alluring-manifestation-production-84c6.up.railway.app",
-# ]
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+CORS_ALLOWED_ORIGINS = [
+    "https://alluring-manifestation-production-84c6.up.railway.app",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://stripetest-production-1be8.up.railway.app",
+    "https://alluring-manifestation-production-84c6.up.railway.app",
+]
 # CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ALLOW_CREDENTIALS = True
 
